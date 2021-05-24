@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">Recetas easy</a>
+
+  <div>
+    
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+
+<div class="container mt-5">
+    <h2>Mis Recetas Easy.</h2>
+
+    <div class="row mt-3">
+
+    <!-- Left Side: Recetas Search and List -->
+    <div class="col-md-5 mb-5">
+
+      <div>
+
+            <div class="input-group">
+
+              <select [(ngModel)]="searchString"
+              class="form-control">
+                <option value="">Seleccione Categoría</option>
+                <option value="Platos principales">Platos principales</option>
+                <option value="Acompañamientos">Acompañamientos</option>
+                <option value="Ensaladas">Ensaladas</option>
+                <option value="">Todas las categorías</option>                                   
+              </select>
+
+
+                <span class="input-group-append">
+                    <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" 
+                            (click)="submitSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </span>
+            </div>
+            <hr>
+      </div>
+
+
+      <!-- Recetas List -->
+      <div *ngIf="loading">
+        Loading...
+      </div>
+
+
+      <div *ngIf="!loading">
+
+        <a [routerLink]="'/receta/' + receta.id" *ngFor="let receta of recetas">
+
+        <ul class="list-group">
+
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{receta.id}} - {{receta.nombre}}
+              <span>{{receta.categoria.tipo}}</span>
+          </li>
+
+        </ul>
+      </a>
+
+
+          <!-- Pagination -->
+
+          <div>
+            <hr>
+            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="previousPage()" [disabled]="page === 1">Previous</button>
+            <span class="px-4">{{page}}</span>
+            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="nextPage()" [disabled]="!recetas.length">Next</button>
+          </div>
+       </div>
+      </div>
+
+
+  
+
+    <!-- Right Side: Receta Details -->
+    <div class="col-md-6 offset-md-1">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+<footer class="text-light bg-dark py-1 fixed-bottom">
+Developed by jotafer
+</footer>
